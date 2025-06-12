@@ -1,6 +1,9 @@
 # Natural Language Task Manager
 
-A full-stack task management application that allows users to create tasks using natural language input powered by OpenAI GPT.
+A full-stack task management application that allows users to create tasks using natural language input.
+
+<img width="1680" alt="Screenshot 2025-06-12 at 1 06 10 PM" src="https://github.com/user-attachments/assets/468c58e1-1335-4aef-a881-ae02cbdcc0c0" />
+
 
 ## Features
 
