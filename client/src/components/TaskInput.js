@@ -17,11 +17,10 @@ const TaskInput = ({ onAddTask, isLoading }) => {
   };
 
   return (
-    <div className="card mb-6">
-      <h2 className="text-lg font-semibold text-gray-900 mb-4">Add New Task</h2>
+    <div className="bg-white rounded-lg shadow-sm border border-blue-200 p-6">
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
-          <label htmlFor="task-input" className="block text-sm font-medium text-gray-700 mb-4">
+          <label htmlFor="task-input" className="block text-sm font-medium text-gray-700 mb-2">
             Describe your task in natural language
           </label>
           <textarea

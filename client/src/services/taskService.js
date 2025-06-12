@@ -47,6 +47,15 @@ class TaskService {
       throw new Error(error.response?.data?.error || 'Failed to update task');
     }
   }
+
+  async parseTranscript(transcript) {
+    try {
+      const response = await this.api.post('/tasks/parse-transcript', { transcript });
+      return response.data;
+    } catch (error) {
+      throw new Error(error.response?.data?.error || 'Failed to parse transcript');
+    }
+  }
 }
 
 export default new TaskService();

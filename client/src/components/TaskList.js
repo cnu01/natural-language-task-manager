@@ -1,6 +1,6 @@
 import React from 'react';
 import TaskCard from './TaskCard';
-import { CheckCircle } from 'lucide-react';
+import { CheckCircle, List } from 'lucide-react';
 
 const TaskList = ({ tasks, onUpdateTask, isLoading }) => {
   if (isLoading) {
@@ -31,9 +31,19 @@ const TaskList = ({ tasks, onUpdateTask, isLoading }) => {
 
   return (
     <div className="space-y-4">
-      <h2 className="text-xl font-semibold text-gray-900 mb-4">
-        Your Tasks ({tasks.length})
-      </h2>
+      <div className="flex items-center gap-3 p-4 bg-white rounded-lg border border-gray-200">
+        <div className="p-2 bg-blue-100 rounded-lg">
+          <List className="w-5 h-5 text-blue-600" />
+        </div>
+        <div>
+          <h2 className="text-xl font-semibold text-gray-900">
+            Your Tasks ({tasks.length})
+          </h2>
+          <p className="text-sm text-gray-600">
+            Manage and track your tasks
+          </p>
+        </div>
+      </div>
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
         {tasks.map((task) => (
           <TaskCard

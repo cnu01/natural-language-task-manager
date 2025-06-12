@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Edit, Save, X, User, Calendar, AlertCircle } from 'lucide-react';
+import { Edit, Save, X, User, Calendar, AlertCircle, FileText } from 'lucide-react';
 
 const TaskCard = ({ task, onUpdateTask }) => {
   const [isEditing, setIsEditing] = useState(false);
@@ -19,6 +19,18 @@ const TaskCard = ({ task, onUpdateTask }) => {
       default: return 'bg-gray-100 text-gray-800 border-gray-200';
     }
   };
+
+  const getPriorityLabel = (priority) => {
+    switch (priority) {
+      case 'P1': return 'Urgent';
+      case 'P2': return 'High';
+      case 'P3': return 'Normal';
+      case 'P4': return 'Low';
+      default: return 'Normal';
+    }
+  };
+
+  const isFromTranscript = task.natural_text?.includes('Extracted from transcript');
 
 
 
@@ -136,7 +148,15 @@ const TaskCard = ({ task, onUpdateTask }) => {
         // View Mode
         <div>
           <div className="flex justify-between items-start mb-4">
-            <h3 className="text-lg font-semibold text-gray-900">{task.task_name}</h3>
+            <div className="flex-1">
+              <h3 className="text-lg font-semibold text-gray-900">{task.task_name}</h3>
+              {isFromTranscript && (
+                <div className="flex items-center text-xs text-purple-600 mt-1">
+                  <FileText className="h-3 w-3 mr-1" />
+                  Extracted from transcript
+                </div>
+              )}
+            </div>
             <div className="flex space-x-2">
               <button
                 onClick={() => setIsEditing(true)}
@@ -151,25 +171,30 @@ const TaskCard = ({ task, onUpdateTask }) => {
             {task.assignee && (
               <div className="flex items-center text-sm text-gray-600">
                 <User className="h-4 w-4 mr-2" />
-                Assigned to: {task.assignee}
+                <span className="font-medium">Assigned to:</span> {task.assignee}
               </div>
             )}
             
             <div className="flex items-center text-sm text-gray-600">
               <Calendar className="h-4 w-4 mr-2" />
-              Due: {formatDate(task.due_datetime)}
+              <span className="font-medium">Due:</span> {formatDate(task.due_datetime)}
             </div>
           </div>
           
-          <div className="flex items-center space-x-2 mb-3">
-            <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium border ${getPriorityColor(task.priority)}`}>
-              <AlertCircle className="h-3 w-3 mr-1" />
-              {task.priority}
+          <div className="flex items-center justify-between mb-3">
+            <span className={`inline-flex items-center px-3 py-1 rounded-full text-sm font-medium border ${getPriorityColor(task.priority)}`}>
+              <AlertCircle className="h-4 w-4 mr-1" />
+              {task.priority} - {getPriorityLabel(task.priority)}
             </span>
+            {isFromTranscript && (
+              <div className="bg-purple-50 border border-purple-200 rounded-full px-2 py-1">
+                <FileText className="h-4 w-4 text-purple-600" />
+              </div>
+            )}
           </div>
           
-          <div className="text-xs text-gray-500 italic">
-            Original: "{task.natural_text}"
+          <div className="text-xs text-gray-500 italic bg-gray-50 p-2 rounded">
+            <span className="font-medium">Original:</span> "{task.natural_text}"
           </div>
         </div>
       )}

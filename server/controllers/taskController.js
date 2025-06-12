@@ -74,6 +74,34 @@ class TaskController {
       });
     }
   }
+
+  async parseTranscript(req, res) {
+    try {
+      const { transcript } = req.body;
+
+      if (!transcript || typeof transcript !== 'string' || transcript.trim().length === 0) {
+        return res.status(400).json({
+          error: 'transcript is required and must be a non-empty string'
+        });
+      }
+
+      console.log('Received transcript:', transcript);
+
+      const tasks = await taskService.parseTranscript(transcript.trim());
+      
+      res.status(201).json({
+        success: true,
+        data: tasks,
+        count: tasks.length,
+        message: `Successfully parsed ${tasks.length} tasks from transcript`
+      });
+    } catch (error) {
+      console.error('Error in parseTranscript controller:', error);
+      res.status(500).json({
+        error: error.message || 'Internal server error'
+      });
+    }
+  }
 }
 
 module.exports = new TaskController();

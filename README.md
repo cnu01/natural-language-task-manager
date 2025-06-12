@@ -10,8 +10,31 @@ A full-stack task management application that allows users to create tasks using
 - 🤖 **Natural Language Processing**: Create tasks using plain English
 - 📝 **Task Management**: Full CRUD operations for tasks
 - 🎯 **Smart Parsing**: Automatically extracts task details like assignee, priority, and due dates
+- 📋 **AI Transcript Parser**: Extract multiple tasks from meeting transcripts
 - 🔒 **Secure**: Rate limiting and security middleware
 - 📱 **Responsive**: Modern React frontend with Tailwind CSS
+
+## Screenshots
+
+### Main Dashboard
+![Main Dashboard](screenshots/dashboard.png)
+*Clean interface showing task list with toggleable input sections*
+
+### Add New Task
+![Add New Task](screenshots/add-task.png)
+*Natural language task creation with intelligent parsing*
+
+### AI Transcript Parser
+![Transcript Parser](screenshots/transcript-parser.png)
+*Bulk task extraction from meeting transcripts*
+
+### Task Management
+![Task Cards](screenshots/task-cards.png)
+*Interactive task cards with priority indicators and editing capabilities*
+
+### Responsive Design
+![Mobile View](screenshots/mobile-view.png)
+*Fully responsive design works seamlessly on mobile devices*
 
 ## Tech Stack
 
@@ -109,18 +132,33 @@ NODE_ENV=development
 
 - `GET /api/tasks` - Get all tasks
 - `POST /api/tasks` - Create a new task with natural language
-- `PUT /api/tasks/:id` - Update a task
-- `DELETE /api/tasks/:id` - Delete a task
+- `POST /api/tasks/parse-transcript` - Parse meeting transcript into multiple tasks
+- `PATCH /api/tasks/:id` - Update a task
 
 ## Natural Language Examples
 
 The application can parse various natural language inputs:
 
+### Single Task Creation:
 - "Send email to John by tomorrow at 3pm"
 - "High priority: Review budget report assigned to Sarah"
 - "Call client Rajeev tomorrow at 5pm"
 - "Finish landing page Aman by 11pm 20th June"
 - "Meeting with Mark assigned to Alice"
+
+### Meeting Transcript Parsing:
+The AI transcript parser can extract multiple tasks from meeting notes:
+
+**Input:**
+```
+"Aman you take the landing page by 10pm tomorrow. Rajeev you take care of client follow-up by Wednesday. Shreya please review the marketing deck tonight."
+```
+
+**Output:** 
+Creates 3 separate tasks with proper assignees and deadlines:
+- Task: "Take the landing page" → Assigned to: Aman → Due: Tomorrow 10:00 PM
+- Task: "Client follow-up" → Assigned to: Rajeev → Due: Wednesday 9:00 AM  
+- Task: "Review the marketing deck" → Assigned to: Shreya → Due: Tonight 9:00 PM
 
 ## Git Ignore
 
